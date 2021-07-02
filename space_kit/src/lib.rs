@@ -1,11 +1,11 @@
-use astro::planet::{heliocent_coords, Planet as AstroPlanet};
+mod helpers;
+
+use helpers::*;
+use astro::planet::heliocent_coords;
 use astro::time::*;
 use std::os::raw::{c_double, c_short, c_char, c_uchar, c_void};
 use std::ffi::CString;
 use std::sync::{Arc, Mutex};
-use dotenv::dotenv;
-use std::env;
-use serde::Deserialize;
 
 /// A number representing a day on the Julian calendar
 pub type JulianDay = c_double;
@@ -48,34 +48,6 @@ pub struct PhotoInfo {
     pub url: *const c_char,
     /// HD Photo URL
     pub hd_url: *const c_char,
-}
-
-#[derive(Deserialize)]
-struct PhotoResult {
-    title: String,
-    explanation: String,
-    url: String,
-    hdurl: String,
-}
-
-struct PtrWrapper {
-    pub void_ptr: *mut c_void,
-}
-unsafe impl Send for PtrWrapper {}
-
-impl From<Planet> for AstroPlanet {
-    fn from(planet: Planet) -> Self {
-        match planet {
-            Planet::Mercury => Self::Mercury,
-            Planet::Venus => Self::Venus,
-            Planet::Earth => Self::Earth,
-            Planet::Mars => Self::Mars,
-            Planet::Jupiter => Self::Jupiter,
-            Planet::Saturn => Self::Saturn,
-            Planet::Uranus => Self::Uranus,
-            Planet::Neptune => Self::Neptune,
-        }
-    }
 }
 
 /// Returns a representation of a Julian day, which is required by other functions.
@@ -143,14 +115,4 @@ pub extern fn fetch_photo_of_the_day(callback: PhotoCallback, context: *mut c_vo
         let context_wrapper = lock.lock().unwrap();
         callback(info_ptr, context_wrapper.void_ptr);
     });
-}
-
-async fn fetch_photo() -> Option<PhotoResult> {
-    // parse `.env` file
-    dotenv().ok();
-
-    let api_key = env::var("NASA_API_KEY").unwrap();
-    let url = format!("https://api.nasa.gov/planetary/apod?api_key={}", api_key);
-    let response = reqwest::get(&url).await.ok()?;
-    response.json::<PhotoResult>().await.ok()
 }
