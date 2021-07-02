@@ -13,6 +13,8 @@ pub struct PhotoResult {
     pub hdurl: String,
 }
 
+/// A wrapper for a void pointer that implements `Send` so it can be
+/// passed across thread boundaries.
 pub struct PtrWrapper {
     pub void_ptr: *mut c_void,
 }
