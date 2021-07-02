@@ -1,6 +1,8 @@
 use space_kit::*;
 use std::ptr;
 use std::os::raw::c_void;
+use std::ffi::CStr;
+use tokio::time::{sleep, Duration};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -10,9 +12,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     fetch_photo_of_the_day(photo_callback, ptr::null_mut());
 
+    sleep(Duration::from_secs(10)).await;
     Ok(())
 }
 
-extern "C" fn photo_callback(photo: PhotoInfo, context: *mut c_void) {
-    println!("photo: {:?}", photo);
+extern "C" fn photo_callback(photo: *mut PhotoInfo, context: *mut c_void) {
+    unsafe {
+        let info = photo.as_ref().unwrap();
+        let url = CStr::from_ptr(info.hd_url).to_str().unwrap();
+        println!("photo url: {}", url);
+    }
 }
