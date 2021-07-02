@@ -93,17 +93,23 @@ pub extern fn heliocentric_coordinates(planet: Planet, day: JulianDay) -> Coordi
 /// to the provided callback function along with the photo info.
 #[no_mangle]
 pub extern fn fetch_photo_of_the_day(callback: PhotoCallback, context: *mut c_void) {
+    // This works without `Arc`, but it seems to be conventional Rust to use both Arc and Mutex
+    // together when passing data between threads.
     let lock = Arc::new(Mutex::new(PtrWrapper { void_ptr: context }));
     tokio::spawn(async move {
-        let result = match fetch_photo().await {
+        let result = fetch_photo().await;
+        let context = lock.lock().unwrap().void_ptr;
+
+        let result = match result {
             Some(info) => info,
-            None => return callback(std::ptr::null_mut(), std::ptr::null_mut()),
+            None => return callback(std::ptr::null_mut(), context),
         };
 
         let title = CString::new(result.title).unwrap();
         let explanation = CString::new(result.explanation).unwrap();
         let url = CString::new(result.url).unwrap();
         let hd_url = CString::new(result.hdurl).unwrap();
+        
         let mut info = PhotoInfo {
             title: title.as_ptr(),
             explanation: explanation.as_ptr(),
@@ -112,7 +118,6 @@ pub extern fn fetch_photo_of_the_day(callback: PhotoCallback, context: *mut c_vo
         };
 
         let info_ptr = &mut info as *mut PhotoInfo;
-        let context_wrapper = lock.lock().unwrap();
-        callback(info_ptr, context_wrapper.void_ptr);
+        callback(info_ptr, context);
     });
 }
