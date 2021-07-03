@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    let viewModel = ContentViewModel()
+
     var body: some View {
         Text("Hello, world!")
             .padding()
+            .onAppear {
+                viewModel.performSpaceKitTests()
+            }
     }
 }
 

@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7593C2922690CFA7002FC206 /* SpaceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7593C2912690CFA7002FC206 /* SpaceKit */; };
+		7593C2942690D051002FC206 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593C2932690D051002FC206 /* ContentViewModel.swift */; };
 		75F66323266D283C00018D48 /* AstroSwiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F66322266D283C00018D48 /* AstroSwiftApp.swift */; };
 		75F66325266D283C00018D48 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F66324266D283C00018D48 /* ContentView.swift */; };
 		75F66327266D283C00018D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75F66326266D283C00018D48 /* Assets.xcassets */; };
@@ -14,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7593C2932690D051002FC206 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		75F6631F266D283C00018D48 /* AstroSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AstroSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75F66322266D283C00018D48 /* AstroSwiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstroSwiftApp.swift; sourceTree = "<group>"; };
 		75F66324266D283C00018D48 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -27,17 +30,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7593C2922690CFA7002FC206 /* SpaceKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7593C2902690CFA7002FC206 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		75F66316266D283C00018D48 = {
 			isa = PBXGroup;
 			children = (
 				75F66321266D283C00018D48 /* AstroSwift */,
 				75F66320266D283C00018D48 /* Products */,
+				7593C2902690CFA7002FC206 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,6 +66,7 @@
 			children = (
 				75F66322266D283C00018D48 /* AstroSwiftApp.swift */,
 				75F66324266D283C00018D48 /* ContentView.swift */,
+				7593C2932690D051002FC206 /* ContentViewModel.swift */,
 				75F66326266D283C00018D48 /* Assets.xcassets */,
 				75F6632B266D283C00018D48 /* Info.plist */,
 				75F66328266D283C00018D48 /* Preview Content */,
@@ -85,6 +98,9 @@
 			dependencies = (
 			);
 			name = AstroSwift;
+			packageProductDependencies = (
+				7593C2912690CFA7002FC206 /* SpaceKit */,
+			);
 			productName = AstroSwift;
 			productReference = 75F6631F266D283C00018D48 /* AstroSwift.app */;
 			productType = "com.apple.product-type.application";
@@ -140,6 +156,7 @@
 			files = (
 				75F66325266D283C00018D48 /* ContentView.swift in Sources */,
 				75F66323266D283C00018D48 /* AstroSwiftApp.swift in Sources */,
+				7593C2942690D051002FC206 /* ContentViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,6 +288,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"AstroSwift/Preview Content\"";
 				DEVELOPMENT_TEAM = ELT5AES94A;
 				ENABLE_PREVIEWS = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = AstroSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -293,6 +311,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"AstroSwift/Preview Content\"";
 				DEVELOPMENT_TEAM = ELT5AES94A;
 				ENABLE_PREVIEWS = YES;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = AstroSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -328,6 +347,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7593C2912690CFA7002FC206 /* SpaceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SpaceKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 75F66317266D283C00018D48 /* Project object */;
 }
