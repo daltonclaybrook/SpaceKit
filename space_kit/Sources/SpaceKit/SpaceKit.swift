@@ -18,9 +18,9 @@ public final class Coordinates {
     }
 
     public func fetchPhoto(nasaAPIKey: String) {
-        nasaAPIKey.withCString { apiKey in
+        nasaAPIKey.withCString { pointer in
             fetch_photo_of_the_day(
-                apiKey,
+                pointer,
                 photoCallback,
                 Unmanaged.passUnretained(self).toOpaque()
             )
