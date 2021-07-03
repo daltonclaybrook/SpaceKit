@@ -8,11 +8,11 @@ let package = Package(
         .iOS(.v9)
     ],
     products: [
-        .library(name: "SpaceKit", targets: ["SpaceKit", "lib_spacekit"]),
+        .library(name: "SpaceKit", targets: ["SpaceKit", "libspacekit"]),
     ],
     targets: [
         .target(name: "SpaceKit", dependencies: []),
-        .binaryTarget(name: "lib_spacekit", path: "libspace_kit.xcframework"),
+        .binaryTarget(name: "libspacekit", path: "libspacekit.xcframework"),
         .testTarget(name: "SpaceKitTests", dependencies: ["SpaceKit"]),
     ]
 )

@@ -1,6 +1,6 @@
-space_kit/target
-space_kit/Cargo.lock
-/space_kit/space_kit.h
+SpaceKit/target
+SpaceKit/Cargo.lock
+SpaceKit/space_kit.h
 AstroSwift.xcodeproj/project.xcworkspace/xcuserdata
 AstroSwift.xcodeproj/xcuserdata
 .env

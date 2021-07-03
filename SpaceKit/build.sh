@@ -25,8 +25,8 @@ rustup +nightly component add rust-src
 
 
 swift_module_map() {
-  echo 'module libspace_kit {'
-  echo '    header "space_kit.h"'
+  echo 'module libspacekit {'
+  echo '    header "libspacekit.h"'
   echo '    export *'
   echo '}'
 }
@@ -45,26 +45,26 @@ echo "Building fat binary from simulator slices..."
 
 COMBINED_ARCH="aarch64-x86_64-apple-ios-sim"
 mkdir -p "$tmpdir/$COMBINED_ARCH/release"
-lipo "$tmpdir/aarch64-apple-ios-sim/release/libspace_kit.a" \
-    "$tmpdir/x86_64-apple-ios/release/libspace_kit.a" \
-    -create -output "$tmpdir/$COMBINED_ARCH/release/libspace_kit.a"
+lipo "$tmpdir/aarch64-apple-ios-sim/release/libspacekit.a" \
+    "$tmpdir/x86_64-apple-ios/release/libspacekit.a" \
+    -create -output "$tmpdir/$COMBINED_ARCH/release/libspacekit.a"
 
 echo "Building headers and module maps..."
 
 for ARCH in "aarch64-apple-ios" "$COMBINED_ARCH"
 do
-  cbindgen --config cbindgen.toml --crate space_kit --output "$tmpdir/$ARCH/release/headers/space_kit.h" .
+  cbindgen --config cbindgen.toml --crate spacekit --output "$tmpdir/$ARCH/release/headers/libspacekit.h" .
 
-  XCFRAMEWORK_ARGS="${XCFRAMEWORK_ARGS} -library $tmpdir/$ARCH/release/libspace_kit.a"
+  XCFRAMEWORK_ARGS="${XCFRAMEWORK_ARGS} -library $tmpdir/$ARCH/release/libspacekit.a"
   XCFRAMEWORK_ARGS="${XCFRAMEWORK_ARGS} -headers $tmpdir/$ARCH/release/headers/"
   
   swift_module_map > "$tmpdir/$ARCH/release/headers/module.modulemap"
 done
 
-echo "Creating libspace_kit.xcframework..."
+echo "Creating libspacekit.xcframework..."
 
-rm -rf libspace_kit.xcframework
+rm -rf libspacekit.xcframework
 
-XCODEBUILDCOMMAND="xcodebuild -create-xcframework $XCFRAMEWORK_ARGS -output libspace_kit.xcframework"
+XCODEBUILDCOMMAND="xcodebuild -create-xcframework $XCFRAMEWORK_ARGS -output libspacekit.xcframework"
 echo $XCODEBUILDCOMMAND
 $XCODEBUILDCOMMAND

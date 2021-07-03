@@ -1,4 +1,4 @@
-import libspace_kit
+import libspacekit
 import Foundation
 
 public struct Photo {

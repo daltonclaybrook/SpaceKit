@@ -5,6 +5,6 @@
       location = "group:AstroSwift.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:space_kit">
+      location = "group:SpaceKit">
    </FileRef>
 </Workspace>
