@@ -35,12 +35,12 @@ impl From<Planet> for AstroPlanet {
     }
 }
 
-pub async fn fetch_photo() -> Option<PhotoResult> {
+pub fn fetch_photo() -> Option<PhotoResult> {
     // parse `.env` file
     dotenv().ok();
 
     let api_key = env::var("NASA_API_KEY").unwrap();
     let url = format!("https://api.nasa.gov/planetary/apod?api_key={}", api_key);
-    let response = reqwest::get(&url).await.ok()?;
-    response.json::<PhotoResult>().await.ok()
+    let response = reqwest::blocking::get(&url).ok()?;
+    response.json::<PhotoResult>().ok()
 }

@@ -6,6 +6,7 @@ use astro::time::*;
 use std::os::raw::{c_double, c_short, c_char, c_uchar, c_void};
 use std::ffi::CString;
 use std::sync::{Arc, Mutex};
+use std::thread;
 
 /// A number representing a day on the Julian calendar
 pub type JulianDay = c_double;
@@ -96,8 +97,8 @@ pub extern fn fetch_photo_of_the_day(callback: PhotoCallback, context: *mut c_vo
     // This works without `Arc`, but it seems to be conventional Rust to use both Arc and Mutex
     // together when passing data between threads.
     let lock = Arc::new(Mutex::new(PtrWrapper { void_ptr: context }));
-    tokio::spawn(async move {
-        let result = fetch_photo().await;
+    thread::spawn(move || {
+        let result = fetch_photo();
         let context = lock.lock().unwrap().void_ptr;
 
         let result = match result {

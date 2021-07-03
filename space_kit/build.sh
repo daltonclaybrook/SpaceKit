@@ -9,7 +9,7 @@ tmpdir=$(mktemp -d 2>/dev/null || mktemp -d -t 'mytmpdir')
 echo "Created tempdir at $tmpdir"
 
 function cleanup {      
-#   rm -rf "$tmpdir"
+  rm -rf "$tmpdir"
   echo "Deleted temp working directory $tmpdir"
 }
 

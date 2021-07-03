@@ -11,11 +11,12 @@ struct ContentView: View {
     let viewModel = ContentViewModel()
 
     var body: some View {
-        Text("Hello, world!")
-            .padding()
-            .onAppear {
+        VStack(spacing: 16) {
+            Text("Hello, world!")
+            Button("Test SpaceKit", action: {
                 viewModel.performSpaceKitTests()
-            }
+            })
+        }.padding()
     }
 }
 

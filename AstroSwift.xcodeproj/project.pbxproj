@@ -288,7 +288,6 @@
 				DEVELOPMENT_ASSET_PATHS = "\"AstroSwift/Preview Content\"";
 				DEVELOPMENT_TEAM = ELT5AES94A;
 				ENABLE_PREVIEWS = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = AstroSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -311,7 +310,6 @@
 				DEVELOPMENT_ASSET_PATHS = "\"AstroSwift/Preview Content\"";
 				DEVELOPMENT_TEAM = ELT5AES94A;
 				ENABLE_PREVIEWS = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = AstroSwift/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
