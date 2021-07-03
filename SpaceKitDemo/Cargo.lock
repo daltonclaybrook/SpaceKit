@@ -758,7 +758,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "space_kit"
+name = "spacekit"
 version = "0.1.0"
 dependencies = [
  "astro",
@@ -768,11 +768,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "space_kit_demo"
+name = "spacekit_demo"
 version = "0.1.0"
 dependencies = [
  "dotenv",
- "space_kit",
+ "spacekit",
  "tokio",
 ]
 

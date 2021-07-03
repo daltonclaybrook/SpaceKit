@@ -1,5 +1,5 @@
 [package]
-name = "space_kit_demo"
+name = "spacekit_demo"
 version = "0.1.0"
 authors = ["Dalton Claybrook <daltonclaybrook@gmail.com>"]
 edition = "2018"
@@ -8,5 +8,5 @@ edition = "2018"
 
 [dependencies]
 tokio = { version = "1.7.1", features = ["full"] }
-space_kit = { path = "../space_kit" }
+spacekit = { path = "../SpaceKit" }
 dotenv = "0.15.0"

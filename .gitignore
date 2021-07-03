@@ -4,6 +4,6 @@ SpaceKit/space_kit.h
 AstroSwift.xcodeproj/project.xcworkspace/xcuserdata
 AstroSwift.xcodeproj/xcuserdata
 .env
-space_kit_demo/target
+SpaceKitDemo/target
 AstroSwift.xcworkspace/xcuserdata/
 *.xcframework
