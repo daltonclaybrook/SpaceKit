@@ -11,7 +11,6 @@ astro = "2.0.0"
 reqwest = { version = "0.11.4", features = ["json", "blocking"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
-dotenv = "0.15.0"
 
 [lib]
 name = "space_kit"

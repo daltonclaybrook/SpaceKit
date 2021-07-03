@@ -1,8 +1,11 @@
 use space_kit::*;
+use std::ffi::CString;
 use std::ptr;
 use std::os::raw::c_void;
 use std::ffi::CStr;
 use tokio::time::{sleep, Duration};
+use dotenv::dotenv;
+use std::env;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -10,8 +13,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let coords = heliocentric_coordinates(Planet::Earth, day);
     println!("Coordinates: {:?}", coords);
 
-    fetch_photo_of_the_day(photo_callback, ptr::null_mut());
-
+    dotenv().ok();
+    let api_key = env::var("NASA_API_KEY").unwrap();
+    let api_key_c = CString::new(api_key).unwrap();
+    unsafe {
+        fetch_photo_of_the_day(api_key_c.as_ptr(), photo_callback, ptr::null_mut());
+    }
+    
     sleep(Duration::from_secs(10)).await;
     Ok(())
 }

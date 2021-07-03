@@ -1,6 +1,4 @@
 use astro::planet::Planet as AstroPlanet;
-use dotenv::dotenv;
-use std::env;
 use std::os::raw::c_void;
 use serde::Deserialize;
 use super::Planet;
@@ -35,11 +33,7 @@ impl From<Planet> for AstroPlanet {
     }
 }
 
-pub fn fetch_photo() -> Option<PhotoResult> {
-    // parse `.env` file
-    dotenv().ok();
-
-    let api_key = env::var("NASA_API_KEY").unwrap();
+pub fn fetch_photo(api_key: &str) -> Option<PhotoResult> {
     let url = format!("https://api.nasa.gov/planetary/apod?api_key={}", api_key);
     let response = reqwest::blocking::get(&url).ok()?;
     response.json::<PhotoResult>().ok()

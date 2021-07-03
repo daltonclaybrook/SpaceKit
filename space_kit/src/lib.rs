@@ -3,6 +3,7 @@ mod helpers;
 use helpers::*;
 use astro::planet::heliocent_coords;
 use astro::time::*;
+use std::ffi::CStr;
 use std::os::raw::{c_double, c_short, c_char, c_uchar, c_void};
 use std::ffi::CString;
 use std::sync::{Arc, Mutex};
@@ -89,16 +90,21 @@ pub extern fn heliocentric_coordinates(planet: Planet, day: JulianDay) -> Coordi
 ///
 /// # Arguments
 ///
+/// * `nasa_api_key` - The NASA API key to use when fetching the photo of the day
 /// * `callback` - A pointer to the function that will be called when the request completes
 /// * `context` - A pointer to application-defined context data. This data will be passed
 /// to the provided callback function along with the photo info.
 #[no_mangle]
-pub extern fn fetch_photo_of_the_day(callback: PhotoCallback, context: *mut c_void) {
+pub extern fn fetch_photo_of_the_day(nasa_api_key: *const c_char, callback: PhotoCallback, context: *mut c_void) {
     // This works without `Arc`, but it seems to be conventional Rust to use both Arc and Mutex
     // together when passing data between threads.
     let lock = Arc::new(Mutex::new(PtrWrapper { void_ptr: context }));
+    // Copy the API key so we can safely use it from inside the spawned thread.
+    let api_key = unsafe {
+        String::from(CStr::from_ptr(nasa_api_key).to_str().unwrap())
+    };
     thread::spawn(move || {
-        let result = fetch_photo();
+        let result = fetch_photo(&api_key);
         let context = lock.lock().unwrap().void_ptr;
 
         let result = match result {

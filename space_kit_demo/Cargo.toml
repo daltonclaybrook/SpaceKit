@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 tokio = { version = "1.7.1", features = ["full"] }
 space_kit = { path = "../space_kit" }
+dotenv = "0.15.0"

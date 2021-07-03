@@ -762,7 +762,6 @@ name = "space_kit"
 version = "0.1.0"
 dependencies = [
  "astro",
- "dotenv",
  "reqwest",
  "serde",
  "serde_json",
@@ -772,6 +771,7 @@ dependencies = [
 name = "space_kit_demo"
 version = "0.1.0"
 dependencies = [
+ "dotenv",
  "space_kit",
  "tokio",
 ]

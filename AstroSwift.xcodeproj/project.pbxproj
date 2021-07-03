@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7593C2922690CFA7002FC206 /* SpaceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7593C2912690CFA7002FC206 /* SpaceKit */; };
 		7593C2942690D051002FC206 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593C2932690D051002FC206 /* ContentViewModel.swift */; };
+		7593C2962690E601002FC206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593C2952690E601002FC206 /* AppDelegate.swift */; };
+		7593C2982690E694002FC206 /* NASAAPIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593C2972690E694002FC206 /* NASAAPIKey.swift */; };
 		75F66323266D283C00018D48 /* AstroSwiftApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F66322266D283C00018D48 /* AstroSwiftApp.swift */; };
 		75F66325266D283C00018D48 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F66324266D283C00018D48 /* ContentView.swift */; };
 		75F66327266D283C00018D48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75F66326266D283C00018D48 /* Assets.xcassets */; };
@@ -17,6 +19,8 @@
 
 /* Begin PBXFileReference section */
 		7593C2932690D051002FC206 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		7593C2952690E601002FC206 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7593C2972690E694002FC206 /* NASAAPIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NASAAPIKey.swift; sourceTree = "<group>"; };
 		75F6631F266D283C00018D48 /* AstroSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AstroSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75F66322266D283C00018D48 /* AstroSwiftApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstroSwiftApp.swift; sourceTree = "<group>"; };
 		75F66324266D283C00018D48 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,6 +74,8 @@
 				75F66326266D283C00018D48 /* Assets.xcassets */,
 				75F6632B266D283C00018D48 /* Info.plist */,
 				75F66328266D283C00018D48 /* Preview Content */,
+				7593C2952690E601002FC206 /* AppDelegate.swift */,
+				7593C2972690E694002FC206 /* NASAAPIKey.swift */,
 			);
 			path = AstroSwift;
 			sourceTree = "<group>";
@@ -154,7 +160,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7593C2962690E601002FC206 /* AppDelegate.swift in Sources */,
 				75F66325266D283C00018D48 /* ContentView.swift in Sources */,
+				7593C2982690E694002FC206 /* NASAAPIKey.swift in Sources */,
 				75F66323266D283C00018D48 /* AstroSwiftApp.swift in Sources */,
 				7593C2942690D051002FC206 /* ContentViewModel.swift in Sources */,
 			);

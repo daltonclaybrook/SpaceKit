@@ -17,8 +17,14 @@ public final class Coordinates {
         print(coordinates)
     }
 
-    public func fetchPhoto() {
-        fetch_photo_of_the_day(photoCallback, Unmanaged.passUnretained(self).toOpaque())
+    public func fetchPhoto(nasaAPIKey: String) {
+        nasaAPIKey.withCString { apiKey in
+            fetch_photo_of_the_day(
+                apiKey,
+                photoCallback,
+                Unmanaged.passUnretained(self).toOpaque()
+            )
+        }
     }
 
     // MARK: - Helpers
@@ -42,6 +48,7 @@ private func photoCallback(info: UnsafeMutablePointer<PhotoInfo>?, context: Unsa
         .takeUnretainedValue()
 
     guard let info = info else {
+        print("Photo info was nil")
         return coordinates.handleError()
     }
 
@@ -50,6 +57,7 @@ private func photoCallback(info: UnsafeMutablePointer<PhotoInfo>?, context: Unsa
     let urlString = String(cString: info.pointee.url)
     let hdURLString = String(cString: info.pointee.hd_url)
     guard let url = URL(string: urlString), let hdURL = URL(string: hdURLString) else {
+        print("URLs are invalid")
         return coordinates.handleError()
     }
 

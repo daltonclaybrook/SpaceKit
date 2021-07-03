@@ -5,6 +5,6 @@ final class ContentViewModel {
 
     func performSpaceKitTests() {
         coordinates.printSomeCoordinates()
-        coordinates.fetchPhoto()
+        coordinates.fetchPhoto(nasaAPIKey: NASAAPIKey.apiKey)
     }
 }
