@@ -14,7 +14,9 @@ struct ContentView: View {
         VStack(spacing: 16) {
             Text("Hello, world!")
             Button("Test SpaceKit", action: {
-                viewModel.performSpaceKitTests()
+                async {
+                    await viewModel.performSpaceKitTests()
+                }
             })
         }.padding()
     }

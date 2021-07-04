@@ -23,7 +23,6 @@ fi
 #install rust-src for nightly
 rustup +nightly component add rust-src
 
-
 swift_module_map() {
   echo 'module libspacekit {'
   echo '    header "libspacekit.h"'
