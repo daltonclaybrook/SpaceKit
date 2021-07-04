@@ -1,15 +1,36 @@
 import SpaceKit
+import SwiftUI
 import Foundation
 
-final class ContentViewModel {
+final class ContentViewModel: ObservableObject {
     let astronomy = Astronomy(nasaAPIKey: NASAAPIKey.apiKey)
+
+    @Published
+    private(set) var angle: Angle = .degrees(0)
+
+    private let angleIncrement: Double = 0.5
+    private var displayLink: CADisplayLink?
+
+    init() {
+        displayLink = CADisplayLink(target: self, selector: #selector(displayLinkFired(_:)))
+    }
 
     func performSpaceKitTests() async {
         printPosition()
         await fetchPhoto()
     }
 
+    func startIncrementingAngle() {
+        displayLink?.add(to: .main, forMode: .default)
+    }
+
     // MARK: - Helpers
+
+    @objc
+    private func displayLinkFired(_ displayLink: CADisplayLink) {
+        let newAngle = (angle.degrees + angleIncrement).truncatingRemainder(dividingBy: 360.0)
+        angle = .degrees(newAngle)
+    }
 
     private func printPosition() {
         let components = DateComponents(year: 1989, month: 9, day: 25)

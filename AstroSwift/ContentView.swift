@@ -8,17 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    let viewModel = ContentViewModel()
+    @ObservedObject
+    var viewModel = ContentViewModel()
 
     var body: some View {
-        VStack(spacing: 16) {
-            Text("Hello, world!")
-            Button("Test SpaceKit", action: {
-                async {
-                    await viewModel.performSpaceKitTests()
-                }
-            })
-        }.padding()
+        ZStack {
+            PlanetEllipseView(
+                ellipseSize: ellipseSize,
+                planetSize: 20,
+                angle: viewModel.angle
+            )
+            Text("\(Int(viewModel.angle.degrees))°")
+        }
+        .onAppear { viewModel.startIncrementingAngle() }
+    }
+
+    private var ellipseSize: CGSize {
+        let screenSize = UIScreen.main.bounds.size
+        return CGSize(
+            width: screenSize.width - 20,
+            height: (screenSize.width - 20)
+        )
     }
 }
 

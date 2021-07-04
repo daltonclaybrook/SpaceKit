@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		752E4B152692211200A4AA04 /* PlanetRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752E4B142692211200A4AA04 /* PlanetRingView.swift */; };
+		752E4B1726922F1300A4AA04 /* PlanetEllipseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 752E4B1626922F1300A4AA04 /* PlanetEllipseView.swift */; };
 		7593C2922690CFA7002FC206 /* SpaceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7593C2912690CFA7002FC206 /* SpaceKit */; };
 		7593C2942690D051002FC206 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593C2932690D051002FC206 /* ContentViewModel.swift */; };
 		7593C2962690E601002FC206 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7593C2952690E601002FC206 /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		752E4B142692211200A4AA04 /* PlanetRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetRingView.swift; sourceTree = "<group>"; };
+		752E4B1626922F1300A4AA04 /* PlanetEllipseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetEllipseView.swift; sourceTree = "<group>"; };
 		7593C2932690D051002FC206 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 		7593C2952690E601002FC206 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7593C2972690E694002FC206 /* NASAAPIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NASAAPIKey.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				7593C2952690E601002FC206 /* AppDelegate.swift */,
 				7593C2972690E694002FC206 /* NASAAPIKey.swift */,
 				752E4B142692211200A4AA04 /* PlanetRingView.swift */,
+				752E4B1626922F1300A4AA04 /* PlanetEllipseView.swift */,
 			);
 			path = AstroSwift;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 				7593C2962690E601002FC206 /* AppDelegate.swift in Sources */,
 				75F66325266D283C00018D48 /* ContentView.swift in Sources */,
 				7593C2982690E694002FC206 /* NASAAPIKey.swift in Sources */,
+				752E4B1726922F1300A4AA04 /* PlanetEllipseView.swift in Sources */,
 				75F66323266D283C00018D48 /* AstroSwiftApp.swift in Sources */,
 				752E4B152692211200A4AA04 /* PlanetRingView.swift in Sources */,
 				7593C2942690D051002FC206 /* ContentViewModel.swift in Sources */,
