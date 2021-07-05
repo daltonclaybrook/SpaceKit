@@ -8,7 +8,7 @@ struct EllipseView: View {
 
     var body: some View {
         Ellipse()
-            .stroke(Color.white, lineWidth: 1)
+            .stroke(Color.white.opacity(0.4), lineWidth: 1)
             .frame(width: ellipseSize.width, height: ellipseSize.height)
             .padding(ellipseViewPadding)
     }
