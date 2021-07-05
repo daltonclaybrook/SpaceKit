@@ -51,26 +51,3 @@ final class SolarSystemViewModel: ObservableObject {
         currentDate.addTimeInterval(timeIncrement)
     }
 }
-
-public extension Planet {
-    var color: Color {
-        switch self {
-        case .mercury:
-            return .gray
-        case .venus:
-            return .brown
-        case .earth:
-            return .blue
-        case .mars:
-            return .red
-        case .jupiter:
-            return .brown
-        case .saturn:
-            return .yellow
-        case .uranus:
-            return .green
-        case .neptune:
-            return .blue
-        }
-    }
-}

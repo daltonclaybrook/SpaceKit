@@ -1,29 +1,30 @@
+import SpaceKit
 import SwiftUI
 
-struct PlanetEllipseView: View {
+private let ellipseViewPadding: CGFloat = 30.0
+
+struct EllipseView: View {
     let ellipseSize: CGSize
-    let planetSize: CGFloat
-    let planetColor: Color
+
+    var body: some View {
+        Ellipse()
+            .stroke(Color.black, lineWidth: 1)
+            .frame(width: ellipseSize.width, height: ellipseSize.height)
+            .padding(ellipseViewPadding)
+    }
+}
+
+struct PlanetView: View {
+    let ellipseSize: CGSize
+    let planet: Planet
     let angle: Angle
 
     var body: some View {
-        ZStack {
-            // Orbit ring
-            Ellipse()
-                .stroke(Color.black, lineWidth: 1)
-
-//            Circle()
-//                .fill(Color.green)
-//                .frame(width: planetSize, height: planetSize)
-//                .offset(parametricPlanetOffset)
-
-            // Planet
-            Circle()
-                .fill(planetColor)
-                .frame(width: planetSize - 4, height: planetSize - 4)
-                .offset(angularPlanetOffset)
-        }.frame(width: ellipseSize.width, height: ellipseSize.height)
-            .padding(planetSize / 2.0 + 10)
+        Image(planet.imageName)
+            .scaleEffect(0.4)
+            .offset(angularPlanetOffset)
+            .frame(width: ellipseSize.width, height: ellipseSize.height)
+            .padding(ellipseViewPadding)
     }
 
     // MARK: - Helpers
@@ -45,26 +46,16 @@ struct PlanetEllipseView: View {
             return CGSize(width: width, height: height)
         }
     }
-
-    /// Calculate the position of the planet using the angle given as an offset from
-    /// the center of the ellipse.
-    private var parametricPlanetOffset: CGSize {
-        let a = ellipseSize.width / 2.0
-        let b = ellipseSize.height / 2.0
-        let x = a * cos(angle.radians)
-        let y = b * sin(angle.radians)
-        return CGSize(width: x, height: y)
-    }
 }
 
 struct PlanetEllipseView_Previews: PreviewProvider {
+    static let ellipseSize = CGSize(width: 400, height: 200)
+
     static var previews: some View {
-        PlanetEllipseView(
-            ellipseSize: CGSize(width: 400, height: 200),
-            planetSize: 30,
-            planetColor: .orange,
-            angle: .degrees(180)
-        ).previewLayout(.sizeThatFits)
+        ZStack {
+            EllipseView(ellipseSize: ellipseSize)
+            PlanetView(ellipseSize: ellipseSize, planet: .earth, angle: .degrees(270))
+        }.previewLayout(.sizeThatFits)
             .previewDisplayName("Planet Ring View")
     }
 }

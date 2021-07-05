@@ -16,13 +16,9 @@ struct SolarSystemView: View {
         GeometryReader { geometry in
             ZStack(alignment: .center) {
                 ForEach(Planet.allCases, id: \.self) { planet in
-                    PlanetEllipseView(
-                        ellipseSize: getEllipseSize(with: geometry, for: planet),
-                        planetSize: 20,
-                        planetColor: planet.color,
-                        angle: viewModel.angle(of: planet)
-                    )
-                    .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                    let size = getEllipseSize(with: geometry, for: planet)
+                    EllipseView(ellipseSize: size).zIndex(-1)
+                    PlanetView(ellipseSize: size, planet: planet, angle: viewModel.angle(of: planet))
                 }
             }
         }

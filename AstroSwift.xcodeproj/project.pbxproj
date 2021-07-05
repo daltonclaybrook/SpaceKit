@@ -19,6 +19,7 @@
 		75F6632A266D283C00018D48 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75F66329266D283C00018D48 /* Preview Assets.xcassets */; };
 		75FDFE062693539900EB867B /* SolarSystemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FDFE052693539900EB867B /* SolarSystemView.swift */; };
 		75FDFE082693539F00EB867B /* SolarSystemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FDFE072693539F00EB867B /* SolarSystemViewModel.swift */; };
+		75FDFE0A2693863200EB867B /* Planet+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FDFE092693863200EB867B /* Planet+Additions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		75F6632B266D283C00018D48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75FDFE052693539900EB867B /* SolarSystemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarSystemView.swift; sourceTree = "<group>"; };
 		75FDFE072693539F00EB867B /* SolarSystemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarSystemViewModel.swift; sourceTree = "<group>"; };
+		75FDFE092693863200EB867B /* Planet+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Planet+Additions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				7593C2972690E694002FC206 /* NASAAPIKey.swift */,
 				752E4B142692211200A4AA04 /* PlanetRingView.swift */,
 				752E4B1626922F1300A4AA04 /* PlanetEllipseView.swift */,
+				75FDFE092693863200EB867B /* Planet+Additions.swift */,
 			);
 			path = AstroSwift;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7593C2962690E601002FC206 /* AppDelegate.swift in Sources */,
+				75FDFE0A2693863200EB867B /* Planet+Additions.swift in Sources */,
 				75FDFE082693539F00EB867B /* SolarSystemViewModel.swift in Sources */,
 				75FDFE062693539900EB867B /* SolarSystemView.swift in Sources */,
 				75F66325266D283C00018D48 /* ContentView.swift in Sources */,
