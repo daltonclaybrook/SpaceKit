@@ -2,11 +2,13 @@ import libspacekit
 import Foundation
 
 /// The planets of our solar system
-public enum Planet {
+public enum Planet: CaseIterable {
     case mercury, venus, earth, mars, jupiter, saturn, uranus, neptune
 }
 
 public struct PlanetPosition {
+    /// The planet that the position refers to
+    public let planet: Planet
     /// Heliocentric longitude in radians
     public let longitude: Double
     /// Heliocentric latitude in radians
@@ -15,15 +17,14 @@ public struct PlanetPosition {
     public let radiusVector: Double
 }
 
-/// Utility for determining the position of planets for a given date
-public enum PlanetPositioning {
-    /// Determine the position of a given planet on a given date
-    public static func getPosition(of planet: Planet, on date: Date) -> PlanetPosition {
-        let components = calendar.dateComponents(allComponents, from: date)
-        let decimalDay = getDecimalDay(from: components)
+public extension PlanetPosition {
+    init(planet: Planet, date: Date) {
+        let components = Self.calendar.dateComponents(Self.allComponents, from: date)
+        let decimalDay = Self.getDecimalDay(from: components)
         let julianDay = julian_day_from_date(Int16(components.year!), UInt8(components.month!), decimalDay)
         let coordinates = heliocentric_coordinates(planet.libSpaceKitPlanet, julianDay)
-        return PlanetPosition(
+        self.init(
+            planet: planet,
             longitude: coordinates.longitude,
             latitude: coordinates.latitude,
             radiusVector: coordinates.radius_vector

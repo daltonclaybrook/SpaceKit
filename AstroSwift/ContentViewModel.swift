@@ -43,7 +43,7 @@ final class ContentViewModel: ObservableObject {
     private func printPosition() {
         let components = DateComponents(year: 1989, month: 9, day: 25)
         guard let date = Calendar.current.date(from: components) else { return }
-        let position = PlanetPositioning.getPosition(of: .earth, on: date)
+        let position = PlanetPosition(planet: .earth, date: date)
         print("position: \(position)")
     }
 

@@ -3,6 +3,7 @@ import SwiftUI
 struct PlanetEllipseView: View {
     let ellipseSize: CGSize
     let planetSize: CGFloat
+    let planetColor: Color
     let angle: Angle
 
     var body: some View {
@@ -10,14 +11,15 @@ struct PlanetEllipseView: View {
             // Orbit ring
             Ellipse()
                 .stroke(Color.black, lineWidth: 1)
+
+//            Circle()
+//                .fill(Color.green)
+//                .frame(width: planetSize, height: planetSize)
+//                .offset(parametricPlanetOffset)
+
             // Planet
             Circle()
-                .fill(Color.green)
-                .frame(width: planetSize, height: planetSize)
-                .offset(parametricPlanetOffset)
-
-            Circle()
-                .fill(Color.orange)
+                .fill(planetColor)
                 .frame(width: planetSize - 4, height: planetSize - 4)
                 .offset(angularPlanetOffset)
         }.frame(width: ellipseSize.width, height: ellipseSize.height)
@@ -60,6 +62,7 @@ struct PlanetEllipseView_Previews: PreviewProvider {
         PlanetEllipseView(
             ellipseSize: CGSize(width: 400, height: 200),
             planetSize: 30,
+            planetColor: .orange,
             angle: .degrees(180)
         ).previewLayout(.sizeThatFits)
             .previewDisplayName("Planet Ring View")
