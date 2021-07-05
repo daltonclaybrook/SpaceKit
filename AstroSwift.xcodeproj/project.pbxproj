@@ -20,6 +20,8 @@
 		75FDFE062693539900EB867B /* SolarSystemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FDFE052693539900EB867B /* SolarSystemView.swift */; };
 		75FDFE082693539F00EB867B /* SolarSystemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FDFE072693539F00EB867B /* SolarSystemViewModel.swift */; };
 		75FDFE0A2693863200EB867B /* Planet+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FDFE092693863200EB867B /* Planet+Additions.swift */; };
+		75FDFE0C2693958500EB867B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FDFE0B2693958500EB867B /* SceneDelegate.swift */; };
+		75FDFE0E269395FD00EB867B /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FDFE0D269395FD00EB867B /* HostingController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		75FDFE052693539900EB867B /* SolarSystemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarSystemView.swift; sourceTree = "<group>"; };
 		75FDFE072693539F00EB867B /* SolarSystemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarSystemViewModel.swift; sourceTree = "<group>"; };
 		75FDFE092693863200EB867B /* Planet+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Planet+Additions.swift"; sourceTree = "<group>"; };
+		75FDFE0B2693958500EB867B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		75FDFE0D269395FD00EB867B /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,19 +82,8 @@
 		75F66321266D283C00018D48 /* AstroSwift */ = {
 			isa = PBXGroup;
 			children = (
-				75F66322266D283C00018D48 /* AstroSwiftApp.swift */,
-				75F66324266D283C00018D48 /* ContentView.swift */,
-				75FDFE052693539900EB867B /* SolarSystemView.swift */,
-				75FDFE072693539F00EB867B /* SolarSystemViewModel.swift */,
-				7593C2932690D051002FC206 /* ContentViewModel.swift */,
-				75F66326266D283C00018D48 /* Assets.xcassets */,
-				75F6632B266D283C00018D48 /* Info.plist */,
-				75F66328266D283C00018D48 /* Preview Content */,
-				7593C2952690E601002FC206 /* AppDelegate.swift */,
-				7593C2972690E694002FC206 /* NASAAPIKey.swift */,
-				752E4B142692211200A4AA04 /* PlanetRingView.swift */,
-				752E4B1626922F1300A4AA04 /* PlanetEllipseView.swift */,
-				75FDFE092693863200EB867B /* Planet+Additions.swift */,
+				75FDFE102693965900EB867B /* Sources */,
+				75FDFE0F2693963800EB867B /* SupportingFiles */,
 			);
 			path = AstroSwift;
 			sourceTree = "<group>";
@@ -101,6 +94,35 @@
 				75F66329266D283C00018D48 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		75FDFE0F2693963800EB867B /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				75F66326266D283C00018D48 /* Assets.xcassets */,
+				75F6632B266D283C00018D48 /* Info.plist */,
+				75F66328266D283C00018D48 /* Preview Content */,
+				7593C2952690E601002FC206 /* AppDelegate.swift */,
+				75FDFE0B2693958500EB867B /* SceneDelegate.swift */,
+				75FDFE0D269395FD00EB867B /* HostingController.swift */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		75FDFE102693965900EB867B /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				75F66322266D283C00018D48 /* AstroSwiftApp.swift */,
+				75F66324266D283C00018D48 /* ContentView.swift */,
+				75FDFE052693539900EB867B /* SolarSystemView.swift */,
+				75FDFE072693539F00EB867B /* SolarSystemViewModel.swift */,
+				7593C2932690D051002FC206 /* ContentViewModel.swift */,
+				7593C2972690E694002FC206 /* NASAAPIKey.swift */,
+				752E4B142692211200A4AA04 /* PlanetRingView.swift */,
+				752E4B1626922F1300A4AA04 /* PlanetEllipseView.swift */,
+				75FDFE092693863200EB867B /* Planet+Additions.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,7 +203,9 @@
 				75FDFE062693539900EB867B /* SolarSystemView.swift in Sources */,
 				75F66325266D283C00018D48 /* ContentView.swift in Sources */,
 				7593C2982690E694002FC206 /* NASAAPIKey.swift in Sources */,
+				75FDFE0E269395FD00EB867B /* HostingController.swift in Sources */,
 				752E4B1726922F1300A4AA04 /* PlanetEllipseView.swift in Sources */,
+				75FDFE0C2693958500EB867B /* SceneDelegate.swift in Sources */,
 				75F66323266D283C00018D48 /* AstroSwiftApp.swift in Sources */,
 				752E4B152692211200A4AA04 /* PlanetRingView.swift in Sources */,
 				7593C2942690D051002FC206 /* ContentViewModel.swift in Sources */,
@@ -313,10 +337,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"AstroSwift/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"AstroSwift/SupportingFiles/Preview Content\"";
 				DEVELOPMENT_TEAM = ELT5AES94A;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = AstroSwift/Info.plist;
+				INFOPLIST_FILE = AstroSwift/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -335,10 +359,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"AstroSwift/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"AstroSwift/SupportingFiles/Preview Content\"";
 				DEVELOPMENT_TEAM = ELT5AES94A;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = AstroSwift/Info.plist;
+				INFOPLIST_FILE = AstroSwift/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
