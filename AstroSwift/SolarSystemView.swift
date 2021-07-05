@@ -11,22 +11,31 @@ import SwiftUI
 struct SolarSystemView: View {
     @ObservedObject
     private var viewModel = SolarSystemViewModel()
+    private let timeIncrement: TimeInterval = 60 * 60 * 12
 
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .center) {
                 ForEach(Planet.allCases, id: \.self) { planet in
                     let size = getEllipseSize(with: geometry, for: planet)
-                    EllipseView(ellipseSize: size).zIndex(-1)
-                    PlanetView(ellipseSize: size, planet: planet, angle: viewModel.angle(of: planet))
+                    let angle = viewModel.angle(of: planet)
+                    EllipseView(ellipseSize: size)
+                        .zIndex(-100_000)
+                    PlanetView(
+                        ellipseSize: size,
+                        planet: planet,
+                        angle: angle
+                    )
                 }
+                Image("sun")
             }
         }
         .ignoresSafeArea()
+        .background(Image("background"))
         .onAppear {
             viewModel.startAdvancingTime(
                 startDate: Date(timeIntervalSince1970: 0),
-                increment: 60 * 60 * 24
+                increment: timeIncrement
             )
         }
     }

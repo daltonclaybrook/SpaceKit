@@ -8,7 +8,7 @@ struct EllipseView: View {
 
     var body: some View {
         Ellipse()
-            .stroke(Color.black, lineWidth: 1)
+            .stroke(Color.white, lineWidth: 1)
             .frame(width: ellipseSize.width, height: ellipseSize.height)
             .padding(ellipseViewPadding)
     }
@@ -20,11 +20,13 @@ struct PlanetView: View {
     let angle: Angle
 
     var body: some View {
-        Image(planet.imageName)
+        let offset = angularPlanetOffset
+        return Image(planet.imageName)
             .scaleEffect(0.4)
-            .offset(angularPlanetOffset)
+            .offset(offset)
             .frame(width: ellipseSize.width, height: ellipseSize.height)
             .padding(ellipseViewPadding)
+            .zIndex(offset.height)
     }
 
     // MARK: - Helpers
@@ -55,7 +57,8 @@ struct PlanetEllipseView_Previews: PreviewProvider {
         ZStack {
             EllipseView(ellipseSize: ellipseSize)
             PlanetView(ellipseSize: ellipseSize, planet: .earth, angle: .degrees(270))
-        }.previewLayout(.sizeThatFits)
+        }.background(Color.black)
+            .previewLayout(.sizeThatFits)
             .previewDisplayName("Planet Ring View")
     }
 }
