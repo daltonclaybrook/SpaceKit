@@ -27,7 +27,7 @@ struct ContentView: View {
         let screenSize = UIScreen.main.bounds.size
         return CGSize(
             width: screenSize.width - 20,
-            height: (screenSize.width - 20)
+            height: (screenSize.width - 20) * viewModel.ellipseHeightMultiplier
         )
     }
 }

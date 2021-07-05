@@ -7,8 +7,12 @@ final class ContentViewModel: ObservableObject {
 
     @Published
     private(set) var angle: Angle = .degrees(0)
+    @Published
+    private(set) var ellipseHeightMultiplier: Double = 1.0
 
     private let angleIncrement: Double = 0.5
+    private let heightIncrement: Double = 0.005
+    private var heightSineArgument: Double = 0.0
     private var displayLink: CADisplayLink?
 
     init() {
@@ -30,6 +34,10 @@ final class ContentViewModel: ObservableObject {
     private func displayLinkFired(_ displayLink: CADisplayLink) {
         let newAngle = (angle.degrees + angleIncrement).truncatingRemainder(dividingBy: 360.0)
         angle = .degrees(newAngle)
+
+        heightSineArgument += heightIncrement
+        // oscillates between 0.5 - 1.0
+        ellipseHeightMultiplier = (sin(heightSineArgument) + 1) * 0.25 + 0.5
     }
 
     private func printPosition() {
