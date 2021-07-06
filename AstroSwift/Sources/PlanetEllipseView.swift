@@ -20,7 +20,7 @@ struct PlanetView: View {
     let angle: Angle
 
     var body: some View {
-        let offset = angularPlanetOffset
+        let offset = parametricPlanetOffset
         return Image(planet.imageName)
             .scaleEffect(0.4)
             .offset(offset)
@@ -47,6 +47,16 @@ struct PlanetView: View {
         } else {
             return CGSize(width: width, height: height)
         }
+    }
+
+    /// Calculate the position of the planet using the angle given as an offset from
+    /// the center of the ellipse.
+    private var parametricPlanetOffset: CGSize {
+        let a = ellipseSize.width / 2.0
+        let b = ellipseSize.height / 2.0
+        let x = a * cos(angle.radians)
+        let y = b * sin(angle.radians)
+        return CGSize(width: x, height: y)
     }
 }
 
