@@ -2,7 +2,6 @@
 /.build
 /Packages
 /*.xcodeproj
-/*.xcframework
 xcuserdata/
 DerivedData/
 target/

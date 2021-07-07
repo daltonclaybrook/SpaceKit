@@ -1,0 +1,4 @@
+module libspacekit {
+    header "libspacekit.h"
+    export *
+}
