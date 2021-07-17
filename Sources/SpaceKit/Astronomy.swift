@@ -1,11 +1,23 @@
 import Foundation
 import libspacekit
 
-public struct Photo {
+public struct Photo: Equatable {
     public let title: String
     public let explanation: String
     public let url: URL
     public let hdURL: URL
+
+    public init(
+        title: String,
+        explanation: String,
+        url: URL,
+        hdURL: URL
+    ) {
+        self.title = title
+        self.explanation = explanation
+        self.url = url
+        self.hdURL = hdURL
+    }
 }
 
 /// Utility for fetching the NASA astronomy photo of the day
