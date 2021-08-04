@@ -1,6 +1,11 @@
 import Foundation
 import libspacekit
 
+private struct AstronomyContext {
+    let astronomy: Astronomy
+    let completion: Astronomy.PhotoCompletion
+}
+
 public struct Photo: Equatable {
     public let title: String
     public let explanation: String
@@ -22,6 +27,8 @@ public struct Photo: Equatable {
 
 /// Utility for fetching the NASA astronomy photo of the day
 public final class Astronomy {
+    public typealias PhotoCompletion = (Result<Photo, Error>) -> Void
+
     public enum Error: Swift.Error {
         case fetchInProgress
         case noPhotoFound
@@ -29,7 +36,6 @@ public final class Astronomy {
     }
 
     private let nasaAPIKey: String
-    private var completion: ((Result<Photo, Error>) -> Void)?
 
     public init(nasaAPIKey: String) {
         self.nasaAPIKey = nasaAPIKey
@@ -37,10 +43,8 @@ public final class Astronomy {
 
     @available(iOS 15.0, *)
     public func fetchPhoto() async throws -> Photo {
-        guard completion == nil else { throw Error.fetchInProgress }
-
-        return try await withCheckedThrowingContinuation { continuation in
-            completion = { result in
+        try await withCheckedThrowingContinuation { continuation in
+            fetchPhoto { result in
                 switch result {
                 case .success(let photo):
                     continuation.resume(returning: photo)
@@ -48,54 +52,53 @@ public final class Astronomy {
                     continuation.resume(throwing: error)
                 }
             }
-            _fetchPhoto()
         }
     }
 
-    public func fetchPhoto(with completion: @escaping (Result<Photo, Error>) -> Void) {
-        guard self.completion == nil else {
-            return completion(.failure(.fetchInProgress))
-        }
-        self.completion = completion
-        _fetchPhoto()
-    }
+    public func fetchPhoto(with completion: @escaping PhotoCompletion) {
+        let context = AstronomyContext(
+            astronomy: self,
+            completion: completion
+        )
 
-    // MARK: - Helpers
+        let contextPointer = UnsafeMutablePointer<AstronomyContext>.allocate(capacity: 1)
+        contextPointer.initialize(to: context)
 
-    private func _fetchPhoto() {
         nasaAPIKey.withCString { pointer in
             fetch_photo_of_the_day(
                 pointer,
                 photoCallback,
-                Unmanaged.passUnretained(self).toOpaque()
+                UnsafeMutableRawPointer(contextPointer)
             )
         }
     }
 
-    fileprivate func handleDidReceivePhoto(_ photo: Photo) {
-        let completion = completion
-        self.completion = nil
-        completion?(.success(photo))
+    fileprivate func handleDidReceivePhoto(_ photo: Photo, completion: PhotoCompletion) {
+        completion(.success(photo))
     }
 
-    fileprivate func handleError(_ error: Error) {
-        let completion = completion
-        self.completion = nil
-        completion?(.failure(error))
+    fileprivate func handleError(_ error: Error, completion: PhotoCompletion) {
+        completion(.failure(error))
     }
 }
 
 // MARK: - Callbacks
 
-private func photoCallback(info: UnsafeMutablePointer<PhotoInfo>?, context: UnsafeMutableRawPointer?) {
-    guard let context = context else { return }
+private func photoCallback(info: UnsafeMutablePointer<PhotoInfo>?, contextRawPointer: UnsafeMutableRawPointer?) {
+    guard let contextRawPointer = contextRawPointer else { return }
 
-    let coordinates = Unmanaged<Astronomy>
-        .fromOpaque(context)
-        .takeUnretainedValue()
+    let contextPointer = contextRawPointer.assumingMemoryBound(to: AstronomyContext.self)
+    let context = contextPointer.pointee
+    let astronomy = context.astronomy
+    let completion = context.completion
+
+    defer {
+        contextPointer.deinitialize(count: 1)
+        contextPointer.deallocate()
+    }
 
     guard let info = info else {
-        return coordinates.handleError(.noPhotoFound)
+        return astronomy.handleError(.noPhotoFound, completion: completion)
     }
 
     let title = String(cString: info.pointee.title)
@@ -103,9 +106,9 @@ private func photoCallback(info: UnsafeMutablePointer<PhotoInfo>?, context: Unsa
     let urlString = String(cString: info.pointee.url)
     let hdURLString = String(cString: info.pointee.hd_url)
     guard let url = URL(string: urlString), let hdURL = URL(string: hdURLString) else {
-        return coordinates.handleError(.invalidPhotoURLs)
+        return astronomy.handleError(.invalidPhotoURLs, completion: completion)
     }
 
     let photo = Photo(title: title, explanation: explanation, url: url, hdURL: hdURL)
-    coordinates.handleDidReceivePhoto(photo)
+    astronomy.handleDidReceivePhoto(photo, completion: completion)
 }
