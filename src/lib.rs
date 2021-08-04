@@ -1,7 +1,7 @@
 mod helpers;
 
 use helpers::*;
-use astro::planet::heliocent_coords;
+use astro::planet;
 use astro::time::*;
 use std::ffi::CStr;
 use std::os::raw::{c_double, c_short, c_char, c_uchar, c_void};
@@ -77,7 +77,7 @@ pub extern fn julian_day_from_date(year: c_short, month: c_uchar, decimal_day: c
 /// * `date` - The Julian day used to determine coordinates
 #[no_mangle]
 pub extern fn heliocentric_coordinates(planet: Planet, day: JulianDay) -> Coordinates {
-    let (long, lat, rad_vec) = heliocent_coords(&planet.into(), day);
+    let (long, lat, rad_vec) = planet::heliocent_coords(&planet.into(), day);
     Coordinates {
         longitude: long,
         latitude: lat,

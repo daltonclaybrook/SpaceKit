@@ -15,7 +15,7 @@
     "forces-embed-bitcode": true,
     "function-sections": false,
     "has-rpath": true,
-    "is-builtin": true,
+    "is-builtin": false,
     "is-like-osx": true,
     "link-env": [
       "ZERO_AR_DATE=1"
