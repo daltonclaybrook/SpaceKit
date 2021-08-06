@@ -30,7 +30,6 @@ public final class Astronomy {
     public typealias PhotoCompletion = (Result<Photo, Error>) -> Void
 
     public enum Error: Swift.Error {
-        case fetchInProgress
         case noPhotoFound
         case invalidPhotoURLs
     }
@@ -73,12 +72,23 @@ public final class Astronomy {
         }
     }
 
-    fileprivate func handleDidReceivePhoto(_ photo: Photo, completion: PhotoCompletion) {
-        completion(.success(photo))
-    }
+    // MARK: - Completion handler
 
-    fileprivate func handleError(_ error: Error, completion: PhotoCompletion) {
-        completion(.failure(error))
+    fileprivate func handleDidReceivePhoto(_ info: PhotoInfo?, completion: PhotoCompletion) {
+        guard let info = info else {
+            return completion(.failure(.noPhotoFound))
+        }
+
+        let title = String(cString: info.title)
+        let explanation = String(cString: info.explanation)
+        let urlString = String(cString: info.url)
+        let hdURLString = String(cString: info.hd_url)
+        guard let url = URL(string: urlString), let hdURL = URL(string: hdURLString) else {
+            return completion(.failure(.invalidPhotoURLs))
+        }
+
+        let photo = Photo(title: title, explanation: explanation, url: url, hdURL: hdURL)
+        completion(.success(photo))
     }
 }
 
@@ -87,28 +97,13 @@ public final class Astronomy {
 private func photoCallback(info: UnsafeMutablePointer<PhotoInfo>?, contextRawPointer: UnsafeMutableRawPointer?) {
     guard let contextRawPointer = contextRawPointer else { return }
 
-    let contextPointer = contextRawPointer.assumingMemoryBound(to: AstronomyContext.self)
+    let contextPointer = contextRawPointer.bindMemory(to: AstronomyContext.self, capacity: 1)
     let context = contextPointer.pointee
-    let astronomy = context.astronomy
-    let completion = context.completion
 
     defer {
         contextPointer.deinitialize(count: 1)
         contextPointer.deallocate()
     }
 
-    guard let info = info else {
-        return astronomy.handleError(.noPhotoFound, completion: completion)
-    }
-
-    let title = String(cString: info.pointee.title)
-    let explanation = String(cString: info.pointee.explanation)
-    let urlString = String(cString: info.pointee.url)
-    let hdURLString = String(cString: info.pointee.hd_url)
-    guard let url = URL(string: urlString), let hdURL = URL(string: hdURLString) else {
-        return astronomy.handleError(.invalidPhotoURLs, completion: completion)
-    }
-
-    let photo = Photo(title: title, explanation: explanation, url: url, hdURL: hdURL)
-    astronomy.handleDidReceivePhoto(photo, completion: completion)
+    context.astronomy.handleDidReceivePhoto(info?.pointee, completion: context.completion)
 }
