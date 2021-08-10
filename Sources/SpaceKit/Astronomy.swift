@@ -41,6 +41,7 @@ public final class Astronomy {
     }
 
     @available(iOS 15.0, *)
+    @MainActor
     public func fetchPhoto() async throws -> Photo {
         try await withCheckedThrowingContinuation { continuation in
             fetchPhoto { result in
