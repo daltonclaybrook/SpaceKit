@@ -14,4 +14,4 @@ serde_json = "1.0"
 
 [lib]
 name = "spacekit"
-crate-type = ["staticlib", "cdylib"]
+crate-type = ["staticlib"]

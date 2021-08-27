@@ -1,8 +1,10 @@
-#!/bin/bash
+#!/bin/zsh
 # https://github.com/rust-lang/rust/issues/79408
 
 #fail script if a command fails
 set -e
+
+IPHONEOS_DEPLOYMENT_TARGET=13.0
 
 #create temp dir
 tmpdir=$(mktemp -d 2>/dev/null || mktemp -d -t 'mytmpdir')
@@ -15,14 +17,6 @@ function cleanup {
 
 trap cleanup EXIT
 
-if !(rustup toolchain list | grep -q "nightly";) then
-  echo "install nightly toolchain"
-  rustup toolchain install nightly
-fi
-
-#install rust-src for nightly
-rustup +nightly component add rust-src
-
 swift_module_map() {
   echo 'module libspacekit {'
   echo '    header "libspacekit.h"'
@@ -32,12 +26,15 @@ swift_module_map() {
 
 echo "Building architectures..."
 
-XCFRAMEWORK_ARGS=""
 for ARCH in "x86_64-apple-ios" "aarch64-apple-ios" "aarch64-apple-ios-sim"
 do
-  COMMAND="cargo +nightly build --release -Z build-std=core,std,alloc --manifest-path Cargo.toml --target archs/$ARCH.json --target-dir $tmpdir"
-  echo $COMMAND
-  $COMMAND
+    COMMAND="IPHONEOS_DEPLOYMENT_TARGET=$IPHONEOS_DEPLOYMENT_TARGET \
+        cargo +nightly build \
+        --release \
+        --target $ARCH \
+        --target-dir $tmpdir"
+    echo $COMMAND
+    eval $COMMAND
 done
 
 echo "Building fat binary from simulator slices..."
@@ -50,6 +47,7 @@ lipo "$tmpdir/aarch64-apple-ios-sim/release/libspacekit.a" \
 
 echo "Building headers and module maps..."
 
+XCFRAMEWORK_ARGS=""
 for ARCH in "aarch64-apple-ios" "$COMBINED_ARCH"
 do
   cbindgen --config cbindgen.toml --crate spacekit --output "$tmpdir/$ARCH/release/headers/libspacekit.h" .
@@ -66,4 +64,4 @@ rm -rf libspacekit.xcframework
 
 XCODEBUILDCOMMAND="xcodebuild -create-xcframework $XCFRAMEWORK_ARGS -output libspacekit.xcframework"
 echo $XCODEBUILDCOMMAND
-$XCODEBUILDCOMMAND
+eval $XCODEBUILDCOMMAND
